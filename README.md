@@ -148,7 +148,7 @@ After ssh connect to remote server, type:
 Then we will be required to type the user password.
 
 2)	Testing connection with Pgadmin 4
-3)	
+
 a)	Connect to ASU VPN
 
 b)	Right click on the Server to register a server
@@ -267,4 +267,5 @@ echo "----------------------Table combined!-------------------"
 ### 5.4.	Check the newly added table in pgadmin 4
 After the shapefile is loaded into PostgreSQL, we can check it out in pgadmin 4. The total number of records in Alaska region are 119,124,921.
 
+![image](https://github.com/user-attachments/assets/368cb60e-8913-4c4b-ac36-51e3ae23d8ed)
 
