@@ -47,21 +47,30 @@ The coverage ratio map will calculate the coverage ratio of polygons within each
 ## 3.	CICI Remote server connection
 ### 3.1.	Connect to cicilab remote server on local host device
 In terminal on local host device, type:
+
 `ssh username@cici.lab.asu.edu`
+
 and then type password to connect to the server
 
 ### 3.2.	(Preferable) Download geopackages data into remote server
 Since the geopackage folder is too large to load all the folders under it, we can check all the directories/data under the folder first: 
 
-'wget -r -np -nH --cut-dirs=3 -R '\?C=' https://arcticdata.io/data/10.18739/A2KW57K57/iwp_geopackage_high/WGS1984Quad/15'
+
+`wget -r -np -nH --cut-dirs=3 -R '\?C=' https://arcticdata.io/data/10.18739/A2KW57K57/iwp_geopackage_high/WGS1984Quad/15`
+
 
 ### 3.3.	(Optional, if shapefile is needed) Download shp data into remote server
 Create folder in remote server to store data, type:
-mkdir data/download
-Go into the data folder to download data, type:
-cd data/download
 
-'wget -r -np -nH --cut-dirs=3 -R '\?C=' https://arcticdata.io/data/10.18739/A2KW57K57/iwp_shapefile_detections/high/alaska'
+`mkdir data/download`
+
+Go into the data folder to download data, type:
+
+`cd data/download`
+
+`wget -r -np -nH --cut-dirs=3 -R '\?C=' https://arcticdata.io/data/10.18739/A2KW57K57/iwp_shapefile_detections/high/alaska`
+
+
 The shapefile will be downloaded into this folder.
 
 
@@ -85,12 +94,13 @@ The existing docker container installed with PostgreSQL has mounted a data direc
 
 1)	Check the original docker container name and its image ID that we want to create based on:
 To list all the information about the existing docker containers:
-'docker ps -a'
+
+`docker ps -a`
  
 
-
 To list all the information about the existing docker images: 
-'docker images '
+
+`docker images`
  
 
 Then we will get the following information that we need:
@@ -100,31 +110,43 @@ Docker image name: postgis/postgis
 The image ID: 2027022e7219
 
 2)	Stop the original docker container so that we can create a new docker container based on its image.
-docker stop ontop-docker_postgis_1
-3)	Create a new docker image from the existing docker image.
-docker commit 2027022e7219 postgis/postgis
-4)	Check if the image we just created exists
-docker images
-5)	Check the data directory in the server that we want to map into the docker, for example:
-'/home/xchen/data'
-6)	Specify a new folder that we want to use inside the docker to store the data, for example:
-'/home/xchen/data'
-7)	Create a new container from image and run with local folder mounted. Here we also want to adjust the default container shared memory to a large size, so we can have more space to do with large database. Here we set it to 100GB.
 
-'docker run -it --shm-size=100gb -v local_folder:folder_in_container --name new_container_name -p container_port:host_port -t image_name:tag'
+`docker stop ontop-docker_postgis_1`
+
+3)	Create a new docker image from the existing docker image.
+
+`docker commit 2027022e7219 postgis/postgis`
+
+4)	Check if the image we just created exists
+
+`docker images`
+
+7)	Check the data directory in the server that we want to map into the docker, for example:
+
+`/home/xchen/data`
+
+8)	Specify a new folder that we want to use inside the docker to store the data, for example:
+
+`/home/xchen/data`
+
+10)	Create a new container from image and run with local folder mounted. Here we also want to adjust the default container shared memory to a large size, so we can have more space to do with large database. Here we set it to 100GB.
+
+`docker run -it --shm-size=100gb -v local_folder:folder_in_container --name new_container_name -p container_port:host_port -t image_name:tag`
 To be specific, e.g.,
 
-'docker run -it --shm-size=100gb -v /home/xchen/data:/home/xchen/data --name postgis_xchen -p 5432:5432 -t postgis2:latest'
+`docker run -it --shm-size=100gb -v /home/xchen/data:/home/xchen/data --name postgis_xchen -p 5432:5432 -t postgis2:latest`
 
 ### 5.2.	Database connection
 Here, we have three ways to connect to PostgreSQL. The first one is using psql (a terminal-based front-end to PostgreSQL), the second one is using Pgadmin 4 (a a graphical user interface administration tool to manage PostgreSQL), and the third one is using pyscopg2 (a python package to connect to PostgreSQL)
 
 1)	Testing connection with psql
 After ssh connect to remote server, type:
-'psql -h cici.lab.asu.edu -p 5432 -U postgres -d postgres'
+
+`psql -h cici.lab.asu.edu -p 5432 -U postgres -d postgres`
+
 Then we will be required to type the user password.
 
-2)	Testing connection with Pgadmin 4
+3)	Testing connection with Pgadmin 4
 a)	Connect to ASU VPN
 
 b)	Right click on the Server to register a server
@@ -148,7 +170,8 @@ c)	Data tables will be imported under the schemas -> public -> table
 
 3)	Connect to database using psycopg2
 psycopg2 package can be used to connect to the database:
-'''
+
+```
 def set_up_connection(db_host, port, user, pwd, db):
     try:
         connection = psycopg2.connect(
@@ -170,7 +193,8 @@ def sql_to_geodataframe(query, conn):
    pd.set_option('display.max_colwidth', None)
    geo_df = gpd.read_postgis(query, conn, geom_col='geom_centroid', crs="3413")
    return geo_df
-'''
+```
+
 
 ### 5.3.	Import data from remote server to PostgreSQL in docker
 As introduced in the previous section 5.2., psql can be used to connect to database. After connect to the database, we can load data downloaded in the remote server to the database using shp2pgsql.
@@ -191,7 +215,8 @@ docker exec postgis_xchen shp2pgsql -S -s 3413 $shpPath $tableName | PGPASSFILE=
 nohup docker exec postgis_xchen shp2pgsql -S -s 3413 -a $shpPath $tableName | PGPASSFILE='/home/xchen/.pgpass' psql -h localhost -U postgres -d postgres -q
 
 6)	As we have multiple shapefile under the alaska folder, we can iterate all the shapefile using shell script. We will create a shell script file (such as shpImport.sh), and the entire code looks like the following:
-'''
+
+```
 #!/bin/bash
 
 dir="/home/xchen/data/download_alaska/iwp_shapefile_detections/high/alaska/*/*/*.shp"
@@ -223,7 +248,7 @@ done
 end=$(date +%s)
 echo "Elapsed Time: $(($end-$start)) seconds"
 echo "----------------------Table combined!-------------------"
-'''
+```
 
 ### 5.4.	Check the newly added table in pgadmin 4
 After the shapefile is loaded into PostgreSQL, we can check it out in pgadmin 4. The total number of records in Alaska region are 119,124,921.
