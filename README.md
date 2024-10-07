@@ -30,3 +30,49 @@ The coverage ratio map will calculate the coverage ratio of polygons within each
 
 
 
+## 2. Data
+### 2.1. Ice wedge polygon visualization portal
+[Ice Wedge Polygon](https://arcticdata.io/catalog/portals/permafrost?lt=69.79173661318887&ln=-150.89470753194112&ht=1836228.7523939316&hd=1.0791169026958185&p=-89.55059855299719&r=0&el=iwp-coverage%2Ciwp%2Cosm)
+
+### 2.2. Ice wedge polygon shapefile
+[IWP shapefile (Alaska, Canada. Russia)](https://arcticdata.io/data/10.18739/A2KW57K57/iwp_shapefile_detections/high/alaska/)
+
+### 2.3. Ice wedge polygon geopackage
+
+[Introduction to geopackage data which deduplicated the footprints in shapefile data](https://github.com/PermafrostDiscoveryGateway/viz-staging/blob/main/docs/footprints.md)
+
+[IWP polygon Geopackages (Canada, Alaska, Russia)](https://arcticdata.io/data/10.18739/A2KW57K57/iwp_geopackage_high/WGS1984Quad/)
+
+
+## 3.	CICI Remote server connection
+### 3.1.	Connect to cicilab remote server on local host device
+In terminal on local host device, type:
+ssh username@cici.lab.asu.edu
+and then type password to connect to the server
+
+### 3.2.	(Preferable) Download geopackages data into remote server
+Since the geopackage folder is too large to load all the folders under it, we can check all the directories/data under the folder first: 
+
+wget -r -np -nH --cut-dirs=3 -R '\?C=' https://arcticdata.io/data/10.18739/A2KW57K57/iwp_geopackage_high/WGS1984Quad/15
+
+### 3.3.	(Optional, if shapefile is needed) Download shp data into remote server
+Create folder in remote server to store data, type:
+mkdir data/download
+Go into the data folder to download data, type:
+cd data/download
+
+wget -r -np -nH --cut-dirs=3 -R '\?C=' https://arcticdata.io/data/10.18739/A2KW57K57/iwp_shapefile_detections/high/alaska
+The shapefile will be downloaded into this folder.
+
+
+## 4. Environment setup
+### 4.1. Anaconda installtioin
+Open the terminal in server, and following the [installation tutorial](https://docs.anaconda.com/anaconda/install/linux/) to install Anaconda.
+
+### 4.2. Python packages installation
+Open server terminal, to install the following python packages through conda for further analysis: rasterio, psycopg2, pyproj, shapely, pandas, geopandas, matplotlib, numpy, morecantile.
+
+
+## 5. Database
+
+
