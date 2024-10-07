@@ -267,5 +267,6 @@ echo "----------------------Table combined!-------------------"
 ### 5.4.	Check the newly added table in pgadmin 4
 After the shapefile is loaded into PostgreSQL, we can check it out in pgadmin 4. The total number of records in Alaska region are 119,124,921.
 
-![image](https://github.com/user-attachments/assets/368cb60e-8913-4c4b-ac36-51e3ae23d8ed)
+![image](https://github.com/user-attachments/assets/54bc27f7-1552-4bc6-a442-5c3eee0d8d72)
+
 
