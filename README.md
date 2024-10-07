@@ -148,6 +148,7 @@ After ssh connect to remote server, type:
 Then we will be required to type the user password.
 
 2)	Testing connection with Pgadmin 4
+3)	
 a)	Connect to ASU VPN
 
 b)	Right click on the Server to register a server
