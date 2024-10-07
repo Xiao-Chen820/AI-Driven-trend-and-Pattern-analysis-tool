@@ -47,7 +47,7 @@ The coverage ratio map will calculate the coverage ratio of polygons within each
 ## 3.	CICI Remote server connection
 ### 3.1.	Connect to cicilab remote server on local host device
 In terminal on local host device, type:
-'ssh username@cici.lab.asu.edu'
+`ssh username@cici.lab.asu.edu`
 and then type password to connect to the server
 
 ### 3.2.	(Preferable) Download geopackages data into remote server
