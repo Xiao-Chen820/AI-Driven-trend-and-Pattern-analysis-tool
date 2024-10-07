@@ -152,21 +152,33 @@ Then we will be required to type the user password.
 a)	Connect to ASU VPN
 
 b)	Right click on the Server to register a server
+
 In Gerneral tab, 
+
 Name: Alaska
+
 In Connection tab, 
+
 Host name/address: cici.lab.asu.edu
+
 Port: 5432
+
 Maintenance database: postgres
+
 Username: (type username of database here)
+
 Password: (type user password of database here)
 
-In SSH Tunnel,
-Turn on Use SSH Tunneling
+In SSH Tunnel tab, turn on Use SSH Tunneling
+
 Tunnel host: cici.lab.asu.edu
+
 Tunnel port: 22
+
 Username: (Type your username of remote server here)
+
 Password: (Type your password of remote server here)
+
 
 c)	Data tables will be imported under the schemas -> public -> table
 
