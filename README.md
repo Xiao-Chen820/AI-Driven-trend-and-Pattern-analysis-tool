@@ -121,17 +121,18 @@ The image ID: 2027022e7219
 
 `docker images`
 
-7)	Check the data directory in the server that we want to map into the docker, for example:
+5)	Check the data directory in the server that we want to map into the docker, for example:
 
 `/home/xchen/data`
 
-8)	Specify a new folder that we want to use inside the docker to store the data, for example:
+6)	Specify a new folder that we want to use inside the docker to store the data, for example:
 
 `/home/xchen/data`
 
-10)	Create a new container from image and run with local folder mounted. Here we also want to adjust the default container shared memory to a large size, so we can have more space to do with large database. Here we set it to 100GB.
+7)	Create a new container from image and run with local folder mounted. Here we also want to adjust the default container shared memory to a large size, so we can have more space to do with large database. Here we set it to 100GB.
 
 `docker run -it --shm-size=100gb -v local_folder:folder_in_container --name new_container_name -p container_port:host_port -t image_name:tag`
+
 To be specific, e.g.,
 
 `docker run -it --shm-size=100gb -v /home/xchen/data:/home/xchen/data --name postgis_xchen -p 5432:5432 -t postgis2:latest`
@@ -146,7 +147,7 @@ After ssh connect to remote server, type:
 
 Then we will be required to type the user password.
 
-3)	Testing connection with Pgadmin 4
+2)	Testing connection with Pgadmin 4
 a)	Connect to ASU VPN
 
 b)	Right click on the Server to register a server
@@ -203,16 +204,28 @@ shp2pgsql is an SQL script which help us to import shapefile into database via t
 The following tutorial will walk you through the key points in the code. The complete code is concluded the last step in this section.
 
 1)	Since the PostgreSQL is installed in a docker container, if we want to start to use PostgreSQL, we should start with executing the docker container.
-docker exec postgis_xchen
+
+`docker exec postgis_xchen`
+
 2)	The above code will be followed by the shp2pgsql command to create a new table.
-docker exec postgis_xchen shp2pgsql -S -s 3413 $shpPath $tableName
+
+`docker exec postgis_xchen shp2pgsql -S -s 3413 $shpPath $tableName`
+
 3)	Create a PGPASSFILE file. When we import hundreds of shapefile into database, we will be authenticated for hundreds of times. To avoid the manual password typing, we can create a PGPASSFILE file named .pgpass in the server user folder (which is /home/xchen in this case). In the .pgpass file, type:
-cici.lab.asu.edu:5432:your_database_name:your_database_username:your_database_password
-e.g., cici.lab.asu.edu:5432:postgres:postgres:your_database_password
+
+`cici.lab.asu.edu:5432:your_database_name:your_database_username:your_database_password`
+
+e.g., 
+
+`cici.lab.asu.edu:5432:postgres:postgres:your_database_password`
+
 4)	Import the project data (mentioned in section 2.3.) from server using shp2pgsql, to the PostgreSQL using psql
-docker exec postgis_xchen shp2pgsql -S -s 3413 $shpPath $tableName | PGPASSFILE='/home/xchen/.pgpass' psql -h localhost -U postgres -d postgres -q
+
+`docker exec postgis_xchen shp2pgsql -S -s 3413 $shpPath $tableName | PGPASSFILE='/home/xchen/.pgpass' psql -h localhost -U postgres -d postgres -q`
+
 5)	The import process may last for couple hours, so we can also hang the program in the backend of server to avoid the issue caused by laptop shutdown, for example, using nohup:
-nohup docker exec postgis_xchen shp2pgsql -S -s 3413 -a $shpPath $tableName | PGPASSFILE='/home/xchen/.pgpass' psql -h localhost -U postgres -d postgres -q
+
+`nohup docker exec postgis_xchen shp2pgsql -S -s 3413 -a $shpPath $tableName | PGPASSFILE='/home/xchen/.pgpass' psql -h localhost -U postgres -d postgres -q`
 
 6)	As we have multiple shapefile under the alaska folder, we can iterate all the shapefile using shell script. We will create a shell script file (such as shpImport.sh), and the entire code looks like the following:
 
