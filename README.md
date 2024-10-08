@@ -28,38 +28,33 @@ The coverage ratio map will calculate the coverage ratio of polygons within each
 
 ![image](https://github.com/user-attachments/assets/6530f21f-861b-4878-bdbd-82f50ce893da)
 
-
-
-## 2. Data
-### 2.1. Ice wedge polygon visualization portal
-[Ice Wedge Polygon](https://arcticdata.io/catalog/portals/permafrost?lt=69.79173661318887&ln=-150.89470753194112&ht=1836228.7523939316&hd=1.0791169026958185&p=-89.55059855299719&r=0&el=iwp-coverage%2Ciwp%2Cosm)
-
-### 2.2. Ice wedge polygon shapefile
-[IWP shapefile (Alaska, Canada. Russia)](https://arcticdata.io/data/10.18739/A2KW57K57/iwp_shapefile_detections/high/alaska/)
-
-### 2.3. Ice wedge polygon geopackage
-
-[Introduction to geopackage data which deduplicated the footprints in shapefile data](https://github.com/PermafrostDiscoveryGateway/viz-staging/blob/main/docs/footprints.md)
-
-[IWP polygon Geopackages (Canada, Alaska, Russia)](https://arcticdata.io/data/10.18739/A2KW57K57/iwp_geopackage_high/WGS1984Quad/)
-
-
-## 3.	CICI Remote server connection
-### 3.1.	Connect to cicilab remote server on local host device
+## 2.	CICI Remote server connection
+### Connect to cicilab remote server on local host device
 In terminal on local host device, type:
 
 `ssh username@cici.lab.asu.edu`
 
 and then type password to connect to the server
 
-### 3.2.	(Preferable) Download geopackages data into remote server
-Since the geopackage folder is too large to load all the folders under it, we can check all the directories/data under the folder first: 
+## 3. Data
+### 3.1. Ice wedge polygon visualization portal
+[Ice Wedge Polygon](https://arcticdata.io/catalog/portals/permafrost?lt=69.79173661318887&ln=-150.89470753194112&ht=1836228.7523939316&hd=1.0791169026958185&p=-89.55059855299719&r=0&el=iwp-coverage%2Ciwp%2Cosm)
 
+### 3.2. Ice wedge polygon shapefile
+[IWP shapefile (Alaska, Canada. Russia)](https://arcticdata.io/data/10.18739/A2KW57K57/iwp_shapefile_detections/high/alaska/)
+
+### 3.3. Ice wedge polygon geopackage
+
+[Introduction to geopackage data which deduplicated the footprints in shapefile data](https://github.com/PermafrostDiscoveryGateway/viz-staging/blob/main/docs/footprints.md)
+
+[IWP polygon Geopackages (Canada, Alaska, Russia)](https://arcticdata.io/data/10.18739/A2KW57K57/iwp_geopackage_high/WGS1984Quad/)
+
+### 3.4.	Download geopackages data into remote server
+Since the geopackage folder is too large to load all the folders under it, we can check all the directories/data under the folder first: 
 
 `wget -r -np -nH --cut-dirs=3 -R '\?C=' https://arcticdata.io/data/10.18739/A2KW57K57/iwp_geopackage_high/WGS1984Quad/15`
 
-
-### 3.3.	(Optional, if shapefile is needed) Download shp data into remote server
+### 3.5.	Download shapefile data into remote server
 Create folder in remote server to store data, type:
 
 `mkdir data/download`
