@@ -256,13 +256,13 @@ do
     then 
         echo "flag before creating is: $flag"
         echo "-------------------Creating A Table!------------------"
-        docker exec postgis_xchen shp2pgsql -S -s 3413 $shpPath $tableName | PGPASSFILE='/home/xchen/.pgpass' psql -h localhost -U postgres -d postgres -q
+        nohup docker exec postgis_xchen shp2pgsql -S -s 3413 $shpPath $tableName | PGPASSFILE='/home/xchen/.pgpass' psql -h localhost -U postgres -d postgres -q
         flag=$(( $flag + 1 ))
         echo "flag after creating is: $flag"
     else 
         echo "flag before inserting is: $flag"
         echo "-------------------Inserting into the existing table!-----------------"
-        docker exec postgis_xchen shp2pgsql -S -s 3413 -a $shpPath $tableName | PGPASSFILE='/home/xchen/.pgpass' psql -h localhost -U postgres -d postgres -q
+        nohup docker exec postgis_xchen shp2pgsql -S -s 3413 -a $shpPath $tableName | PGPASSFILE='/home/xchen/.pgpass' psql -h localhost -U postgres -d postgres -q
     fi
 done
 
