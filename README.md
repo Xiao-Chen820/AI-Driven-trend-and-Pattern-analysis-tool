@@ -24,7 +24,8 @@ The second goal is to create various statistics (coverage/width/length/perimeter
 
 The data process pipeline is at a grid level. However, the statistics are calculated at a pixel level. For example,
 
-![image](https://github.com/user-attachments/assets/232c06fa-e239-42a9-8031-229c6ccd4de8)
+![22231734394918_ pic](https://github.com/user-attachments/assets/d2b6cc39-aa2c-4ae5-adbd-de04e28cdc20)
+
 
 
 ## 2. Data
