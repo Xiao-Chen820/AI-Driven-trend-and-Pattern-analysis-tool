@@ -18,6 +18,7 @@ The goal of this project is to analysis the polygons, and generate data products
 This tutorial will walk you through how to download these Ice Wedge Polygon (IWP), how to process the data in batch, and finally generate big statistics data products. 
 
 ## 2. Workflow
+
 ![image](https://github.com/user-attachments/assets/fb7c5960-4a8f-4f73-8198-dcf7df5d818c)
 
 
@@ -25,9 +26,11 @@ This tutorial will walk you through how to download these Ice Wedge Polygon (IWP
 ## 3. Products partial exhibition
 
 * 230 Grids
+
 ![image](https://github.com/user-attachments/assets/75178f11-22ec-4721-8d0d-991a2a45e4b9)
 
 
 * IWP count in Alaska
+
 ![image](https://github.com/user-attachments/assets/14f54b39-4d08-486b-967e-c20558da4a98)
 
