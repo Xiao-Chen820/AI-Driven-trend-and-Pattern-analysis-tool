@@ -1,4 +1,4 @@
-# Second-level big statistics data products for Ice Wedge Polygon (IWP) in Pan-Arctic
+# Second-level big statistics data products for Ice Wedge Polygon (IWP) across Pan-Arctic
 Generate a second-level statistics data products based on the IWP dataset from PDG
 
 ## 1. Objectives
